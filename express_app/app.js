@@ -3,11 +3,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-
-
-
+var mongoose=require('mongoose');
 var app = express();
+
+
+//connect to mongodb
+ mongoose.connect('mongodb://localhost:27017/express_app', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('Connection has been made'))
+  .catch(err => {
+    console.error('App starting error:', err);
+    process.exit(1); // Exit the app if there is a connection error
+  });
+
+
+
 //ici
 
 var fs= require('file-system');
