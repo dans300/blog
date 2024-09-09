@@ -5,18 +5,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose=require('mongoose');
 var app = express();
-
+//const User = require('./models/User');
 
 //connect to mongodb
- mongoose.connect('mongodb://localhost:27017/express_app', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log('Connection has been made'))
+ mongoose.connect('mongodb://localhost:27017/mongo_test_queries', {}).
+ then(() => {
+    console.log('Connection has been made');
+  })
   .catch(err => {
     console.error('App starting error:', err);
     process.exit(1); // Exit the app if there is a connection error
   });
+
+
 
 
 
@@ -35,7 +36,8 @@ fs.readdirSync('controllers').forEach(function (file) {
  app.set('view engine', 'pug');
 //hasta aqui 
 
-
+//const userController = require('./controllers/users');
+//userController.controller(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,7 +60,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.urlencoded({ extended: true }));
 
 
 // catch 404 and forward to error handler
@@ -76,5 +78,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;
