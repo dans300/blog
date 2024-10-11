@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose=require('mongoose');
 var app = express();
+var bodyParser = require('body-parser')
+
 //const User = require('./models/User');
 
 //connect to mongodb
@@ -54,7 +56,7 @@ app.use(function(err, req, res, next) {
  });
  app.listen(3000, function() { console.log('listening on 3000') })
  module.exports = app;
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

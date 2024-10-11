@@ -5,8 +5,11 @@
     })
     }
 */
-
+//var express = require('express')
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 const User = require('../models/User');
+
 
 module.exports.controller = (app) => {
     // Route pour récupérer tous les utilisateurs
@@ -37,10 +40,11 @@ app.get('/users/:id', (req, res) => {
   
 
 // Add a new user using promises
-app.post('/users', (req, res) => {
+app.post('/users',jsonParser,function (req, res)  {
+  console.log('Corps de la requête :', req.body);
     const user = new User({
-      name: req.params.name,
-      email: req.params.email
+      name: req.body.name,
+      email: req.body.email
     });
   
     user.save()
@@ -52,7 +56,7 @@ app.post('/users', (req, res) => {
         res.status(500).send("Erreur lors de l'ajout de l'utilisateur");
       });
   });
-  
+  /*
   app.post('/users', (req, res) => {
     console.log('Corps de la requête :', req.body); // Pour déboguer
     
@@ -83,5 +87,5 @@ app.post('/users', (req, res) => {
             console.log(error);
             res.status(500).send("Erreur lors de l'ajout");
         });
-    });
+    });*/
 };
