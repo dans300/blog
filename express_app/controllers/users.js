@@ -66,15 +66,27 @@ app.post('/users',jsonParser,function (req, res)  {
     User.findOneAndUpdate({name: req.body.name},
                          { $set: { name: req.body.newName } })
     .then(result => {
-      console.log(result+" nein");
-      return res.status(404).send({ message: 'User not found'});
+      //console.log(result+" nein");
+      return res.status(200).send({ message: 'ca marche'});
     })
     .catch(err => {
       console.error(err);
     });
   })
 
+  app.post('/changeEmail',jsonParser,function (req, res)  {
+    User.findOneAndUpdate({email: req.body.email},
+                         { $set: { email: req.body.newEmail } })
+    .then(result => {
+      console.log(result);
+      return res.status(200).send({ message: 'ca marche'});
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  })
 
-    }
+//je pense que ce serait mieux de faire une seule fonctionpour chaque changement
+    }page74
 
     
