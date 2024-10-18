@@ -49,7 +49,7 @@ app.post('/users',jsonParser,function (req, res)  {
   
     user.save()
       .then((user) => {
-        res.send(user);
+        res.send("your unique identifier is "+user.id);
       })
       .catch((error) => {
         console.log(error);
@@ -62,31 +62,30 @@ app.post('/users',jsonParser,function (req, res)  {
 
 
    
-  app.post('/changeName',jsonParser,function (req, res)  {
-    User.findOneAndUpdate({name: req.body.name},
-                         { $set: { name: req.body.newName } })
-    .then(result => {
+  app.post('/change',jsonParser,function (req, res)  {
+    
+    //console.log(us)
+    
+    User.findByIdAndUpdate(req.body.id,
+                         { $set: { name: req.body.name,email:req.body.email } })
+    
+      .then(result => {
       //console.log(result+" nein");
       return res.status(200).send({ message: 'ca marche'});
     })
-    .catch(err => {
-      console.error(err);
+      .catch(err => {
+        //console.error(err);
+        return res.status(404).send({ message: 'that person is not in here'});
     });
+    
+    
+      //
+    
   })
 
-  app.post('/changeEmail',jsonParser,function (req, res)  {
-    User.findOneAndUpdate({email: req.body.email},
-                         { $set: { email: req.body.newEmail } })
-    .then(result => {
-      console.log(result);
-      return res.status(200).send({ message: 'ca marche'});
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  })
-
+ 
+page74
 //je pense que ce serait mieux de faire une seule fonctionpour chaque changement
-    }page74
+    }
 
     
