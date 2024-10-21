@@ -84,8 +84,27 @@ app.post('/users',jsonParser,function (req, res)  {
   })
 
  
-page74
+//page74
 //je pense que ce serait mieux de faire une seule fonctionpour chaque changement
-    }
+app.post('/remove',jsonParser,function (req, res)  {
+  User.findOneAndDelete(req.body.id)
+  .then(result => {
+    //console.log(result+" nein");
+    return res.status(200).send({ message: 'ca marche'+result});
+  })
+    .catch(err => {
+      //console.error(err);
+      return res.status(404).send({ message: 'that person is not in here'});
+  })
+  
+  
+    //
+  
+})
+  
+  
+  
+
+}
 
     
