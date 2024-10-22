@@ -42,11 +42,28 @@ app.get('/users/:id', (req, res) => {
 // Add a new user using promises
 app.post('/users',jsonParser,function (req, res)  {
   console.log('Corps de la requête :', req.body);
-    const user = new User({
+    
+  
+  // Basic validation
+  const { name, email } = req.body;
+  if (!name || !email) {
+      return res.status(400).send("Name and email are required.");
+  }
+
+  const emailRegex = /^\S+@\S+\.\S+$/; // Simple email regex
+  if (!emailRegex.test(email)) {
+      return res.status(400).send("Invalid email format.");
+  }
+  
+  
+  const user = new User({
       name: req.body.name,
       email: req.body.email
     });
   
+  
+     
+
     user.save()
       .then((user) => {
         res.send("your unique identifier is "+user.id);
