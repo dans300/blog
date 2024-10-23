@@ -46,6 +46,11 @@ app.post('/users',jsonParser,function (req, res)  {
   
   // Basic validation
   const { name, email } = req.body;
+
+  if (typeof name !== 'string' || name.trim().length === 0 ||
+    typeof email !== 'string' || email.trim().length === 0) {
+    return res.status(400).send("Name and email are required and must be non-empty strings.");
+  }
   if (!name || !email) {
       return res.status(400).send("Name and email are required.");
   }
@@ -79,29 +84,44 @@ app.post('/users',jsonParser,function (req, res)  {
 
 
    
-  app.post('/change',jsonParser,function (req, res)  {
-    
-    //console.log(us)
-    
-    User.findByIdAndUpdate(req.body.id,
-                         { $set: { name: req.body.name,email:req.body.email } })
-    
-      .then(result => {
-      //console.log(result+" nein");
-      return res.status(200).send({ message: 'ca marche'});
-    })
-      .catch(err => {
-        //console.error(err);
-        return res.status(404).send({ message: 'that person is not in here'});
-    });
-    
-    
-      //
-    
-  })
+ // Update a user
+app.put('/users/:id', (req, res) => {
+  const { name, email } = req.body;
+
+  // Validation des champs
+  if (
+      typeof name !== 'string' || name.trim().length === 0 ||
+      typeof email !== 'string' || email.trim().length === 0
+  ) {
+      return res.status(400).send("Name and email are required and must be non-empty strings.");
+  }
+
+  
+  User.findById(req.params.id, 'name email', function (error, user) {
+      if (error) {
+          console.error(error);
+          return res.status(500).send("Error finding user.");
+      }
+
+     
+      user.name = name;
+      user.email = email;
+
+      
+      user.save(function (error, updatedUser) {
+          if (error) {
+              //console.log(error);
+              return res.status(500).send("Error saving user.");
+          }
+
+          
+          res.send(updatedUser);
+      });
+  });
+});
 
  
-//page74
+//page96
 //je pense que ce serait mieux de faire une seule fonctionpour chaque changement
 app.post('/remove',jsonParser,function (req, res)  {
   User.findOneAndDelete(req.body.id)
