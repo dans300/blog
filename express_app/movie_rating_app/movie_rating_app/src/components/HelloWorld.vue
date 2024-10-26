@@ -1,5 +1,5 @@
 <template>
- <div>
-  Hello World
- </div>
+ <v-layout>
+ this is home
+ </v-layout>
 </template>
