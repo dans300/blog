@@ -1,31 +1,27 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      fixed
-      v-model="drawer"
-      app>
+    <v-navigation-drawer fixed v-model="drawer" app>
       <v-list dense>
         <router-link v-bind:to="{ name: 'Home' }" class="side_bar_link">
-          <v-list-tile>
-            <v-list-tile-action>
+          <v-list-item>
+            <v-list-item-icon>
               <v-icon>home</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>Home</v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-icon>
+            <v-list-item-content>Home</v-list-item-content>
+          </v-list-item>
         </router-link>
         <router-link v-bind:to="{ name: 'Contact' }" class="side_bar_link">
-          <v-list-tile>
-            <v-list-tile-action>
+          <v-list-item>
+            <v-list-item-icon>
               <v-icon>contact_mail</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>Contact</v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-icon>
+            <v-list-item-content>Contact</v-list-item-content>
+          </v-list-item>
         </router-link>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer">
-      </v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Home</v-toolbar-title>
     </v-toolbar>
     <v-content>
