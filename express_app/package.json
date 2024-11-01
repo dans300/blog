@@ -18,6 +18,12 @@
     "vue": "^3.5.12"
   },
   "devDependencies": {
-    "eslint": "^7.0.0"
+    "webpack": "4.46.0",
+    "uglifyjs-webpack-plugin": "1.1.2",
+    "bootstrap-vue": "1.5.1",
+    "vue": "2.7.16",
+    "eslint": "4.19.1",
+    "eslint-config-airbnb-base": "11.3.2",
+    "eslint-plugin-import": "2.31.0"
   }
 }
