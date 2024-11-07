@@ -20,6 +20,7 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'development',
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -47,6 +48,10 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'], // Pour les fichiers CSS
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
@@ -67,9 +72,18 @@ module.exports = {
           name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
+      
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
+        
+  resolve: {
+    alias: {
+      vue$: 'vue/dist/vue.esm.js', // Assurez-vous que Vue est bien résolu
+    }},
+        plugins: [
+          new (require('vue-loader').VueLoaderPlugin)(), // Ajoutez le plugin vue-loader
+        ],
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
